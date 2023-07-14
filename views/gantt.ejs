@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap-5.0.2/dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="bootstrap-5.0.2/dist/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.1/css/all.min.css" rel="stylesheet"
+        type='text/css'>
+    <!--CSS-->
+    <link rel="stylesheet" href="css/mainPage.css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- GANTT CHART -->
+    <!-- no gantt chart? -->
+
+    <!-- BAR CHART -->
+    <script>
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            const colors = ["b87333", "silver", "gold", "color: #e5e4e2"]
+            var array = [["Project", "Number of tasks", { role: "style" }]]
+            var item = []
+            var i = 0;
+            projects = localStorage.getItem("projects");
+            projects = JSON.parse(projects)
+            const count = 0;
+            console.log(typeof (projects))
+            console.log(projects)
+            for (var project in projects) {
+                console.log(typeof (projects[project]))
+                console.log(projects[project])
+                item.push(projects[project].name);
+                item.push(projects[project].tasks.length);
+                item.push(colors[i]);
+                i++;
+                array.push(item);
+                item = [];
+            }
+
+            console.log("data")
+            console.log(array)
+
+            var data = google.visualization.arrayToDataTable(
+                array
+            );
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                }, 2]);
+
+            var options = {
+                title: "Amount of tasks in each project",
+                width: 700,
+                height: 400,
+                bar: { groupWidth: "95%" },
+                legend: { position: "none" },
+            };
+            var chart = new google.visualization.BarChart(document.getElementById("chart_div_bar"));
+            chart.draw(view, options);
+        }
+    </script>
+
+    <script>
+
+        var data = []
+        localStorage.setItem("numStarted", 0);
+        localStorage.setItem("numNotStarted", 0);
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            const started = localStorage.getItem("numStarted")
+            const total = localStorage.getItem("numTotal")
+
+            console.log("started/not started")
+            console.log(started)
+            console.log("/")
+            console.log(total)
+            var data = google.visualization.arrayToDataTable([
+                ['Status', 'Number of tasks'],
+                ['In Progress', parseInt(started)],
+                ['Not In Progress', parseInt(total - started)]
+            ]);
+
+            // localStorage.getItem("numStarted")
+
+            var options = {
+                title: 'Tasks Status`',
+                width: 700,
+                height: 400,
+                bar: { groupWidth: "95%" },
+                legend: { position: "none" },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div_pie'));
+
+            chart.draw(data, options);
+        }
+
+        function LoadProjects() {
+            var projects = JSON.parse(localStorage.getItem("projects"));
+            projects = projects.reverse();
+            var html = "<option value=''>Select Project</option>";
+            for (var a = 0; a < projects.length; a++) {
+                html +=
+                    "<option value='" +
+                    projects[a].id +
+                    "'>" +
+                    projects[a].name +
+                    "</option>";
+            }
+            document.getElementById("project-selector").innerHTML = html;
+        }
+
+        // when page loads
+        window.addEventListener("load", function () {
+            // show all projects and tasks
+            LoadProjects();
+        });
+    </script>
+
+    <title>Statistics</title>
+</head>
+<style>
+    p {
+        font-size: large;
+    }
+
+    .round {
+        border-radius: 25px;
+    }
+
+    .center {
+        display: block;
+        margin: auto;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Task-O-Pad</a>
+            <button style="color: #ffffff" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">↨</span>
+            </button>
+            <div class="collapse navbar-collapse navbar-default" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <form action="/" method="GET">
+                            <input class="nav-link nav-button" type="submit" value="Home" />
+                        </form>
+                    </li>
+                    <% if(connected) { %>
+                        <li class="nav-item">
+                            <form action="/tasks" method="GET">
+                                <input class="nav-link nav-button" type="submit" value="Tasks" />
+                            </form>
+                        </li>
+                        <% } %>
+                            <li class="nav-item">
+                                <% if(connected) { %>
+                                    <form action="/logout" method="GET">
+                                        <input class="nav-link nav-button" type="submit" value="Logout" />
+                                    </form>
+                                    <% } else { %>
+                                        <form action="/login" method="GET">
+                                            <input class="nav-link nav-button" type="submit" value="Login" />
+                                        </form>
+                            <li class="nav-item">
+                                <form action="/signup" method="GET">
+                                    <input class="nav-link nav-button" type="submit" value="Sign Up" />
+                                </form>
+                            </li>
+                            <% } %>
+                                </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="sectionLight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="mt-4 p-5 text-black rounded jumbotron">
+                    <h1>Statistics and Chart</h1>
+                    <p>Below this are several provided charts that show info about the tasks in your projects</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION TWO -->
+
+
+        <div class="sectionDark round">
+            <div class="row">
+                <select name="project" class="form-control center" style="display: initial; width: 200px;"
+                    id="project-selector"></select>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div id="chart_div_bar"></div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div id="chart_div_pie"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+    </div>
+    <footer class="footer bg-light-gray">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4 col-lg-3">
+                    <img class="img-fluid footer-img" src="assets/TaskOPad.png">
+                </div>
+                <div id="icons" class="col-sm-8 col-lg-8 margin center">
+                    <!-- Facebook -->
+                    <a class="btn btn-floating m-1" href="https://www.facebook.com/" role="button"><i
+                            class="fab fa-facebook fa-lg"></i></i></a>
+                    <!-- Twitter -->
+                    <a class="btn btn-floating m-1" href="https://twitter.com/?lang=en" role="button"><i
+                            class="fab fa-twitter fa-lg"></i></i></a>
+                    <!-- Google -->
+                    <a class="btn btn-floating m-1" href="https://www.google.com/" role="button"><i
+                            class="fab fa-google fa-lg"></i></i></a>
+                    <!-- Instagram -->
+                    <a class="btn btn-floating m-1" href="https://www.instagram.com/" role="button"><i
+                            class="fab fa-instagram fa-lg"></i></i></a>
+                    <!-- Linkedin -->
+                    <a class="btn btn-floating m-1" href="https://il.linkedin.com/" role="button"><i
+                            class="fab fa-linkedin fa-lg"></i></i></a>
+                    <!-- Github -->
+                    <a class="btn btn-floating m-1" href="https://github.com/" role="button"><i
+                            class="fab fa-github fa-lg"></i></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+
+        var selectedProject = document.getElementById("project-selector");
+
+        console.log(selectedProject)
+        console.log(document.getElementById("project-selector"))
+        // Add an event listener for the 'input' event
+        selectedProject.addEventListener("input", function () {
+            //put data in array
+            const selected = document.getElementById("project-selector").selectedOptions[0].text;
+            for (var project in projects) {
+                console.log(typeof (projects[project]))
+                console.log(projects[project])
+
+                var started = 0
+                var notStarted = 0
+                if (selected === projects[project].name) {
+                    for (var task in projects[project].tasks) {
+                        console.log(projects[project].tasks[task])
+                        if (projects[project].tasks[task]["status"] === "Progress") {
+                            console.log(projects[project].tasks[task]["status"])
+                            started++;
+                        }
+                        else
+                            notStarted++;
+                    }
+                    break;
+                }
+
+            }
+            console.log(started);
+            console.log(notStarted);
+            localStorage.setItem("numStarted", started);
+            localStorage.setItem("numTotal", notStarted + started);
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+        });
+    </script>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.1/js/all.min.js"></script>
+</body>
+
+</html>

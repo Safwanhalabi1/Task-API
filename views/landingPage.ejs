@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="bootstrap-5.0.2/dist/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="bootstrap-5.0.2/dist/css/bootstrap.min.css">
+  <!-- Font Awesome CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.1/css/all.min.css" rel="stylesheet"
+    type='text/css'>
+  <!--CSS-->
+  <link rel="stylesheet" href="css/mainPage.css">
+  <title>Task-O-Pad</title>
+  <style>
+    .opaque {
+      opacity: 0.3;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Task-O-Pad</a>
+      <button style="color: #ffffff" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">↨</span>
+      </button>
+      <div class="collapse navbar-collapse navbar-default" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <form action="/" method="GET">
+              <input class="nav-link nav-button" type="submit" value="Home" />
+            </form>
+          </li>
+          <% if(connected) { %>
+            <li class="nav-item">
+              <form action="/tasks" method="GET">
+                <input class="nav-link nav-button" type="submit" value="Tasks" />
+              </form>
+            </li>
+            <% } %>
+              <li class="nav-item">
+                <% if(connected) { %>
+                  <form action="/logout" method="GET">
+                    <input class="nav-link nav-button" type="submit" value="Logout" />
+                  </form>
+                  <% } else { %>
+                    <form action="/login" method="GET">
+                      <input class="nav-link nav-button" type="submit" value="Login" />
+                    </form>
+              <li class="nav-item">
+                <form action="/signup" method="GET">
+                  <input class="nav-link nav-button" type="submit" value="Sign Up" />
+                </form>
+              </li>
+              <% } %>
+                </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="sectionLight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="mt-4 p-5 text-black rounded jumbotron">
+          <% if(connected) { %>
+            <h2>Hello <%= username %>
+            </h2>
+            <% } %>
+              <h1>Welcome to Task-O-Pad</h1>
+              <p>The one stop website for everything tasks</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-sm-12 col-md-6">
+        <div id="carouselMain" class="carousel carousel-dark slide">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="assets/Carousel1.png" class="d-block w-100 caro" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/Carousel2.png" class="d-block w-100 caro" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/Carousel3.png" class="d-block w-100 caro" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselMain" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselMain" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+    <br>
+
+    <!-- SECTION TWO -->
+
+    <div class="sectionDark round">
+      <div class="row">
+        <div class="col-sm-12 col-md-3">
+          <img class="img-fluid compliment-left" src="assets/left-img.png">
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="row">
+            <div class="col-sm-12">
+              <p>Task-O-Pad is a website that helps you manage your responsibilities and to-dos</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <p>
+                We understand that managing your to-do list can sometimes be overwhelming, 
+                and that's why we're here to help. Our platform offers a comprehensive task management system designed to streamline 
+                your productivity and ensure that you stay organized. Whether it's personal errands, work projects, or daily chores, 
+                our user-friendly interface allows you to easily create, prioritize, and track tasks effortlessly. With our service, 
+                you can bid farewell to forgotten deadlines and scattered thoughts. 
+                We are committed to providing you with a seamless experience, 
+                empowering you to accomplish your goals and conquer your to-do list efficiently. 
+                Join us today and experience the convenience of our task-to-do service firsthand.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <img class="img-fluid compliment-right" src="assets/left-img.png">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <% if(!connected) { %>
+            <form action="/signup" method="GET">
+              <input class="btn btn-lg btnCenter btn-danger" type="submit" style="width: 44%;" value="Sign Up Now!" />
+            </form>
+            <% } %>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SECTION THREE -->
+
+    <% if(connected) { %>
+      <div class="sectionLight">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-12 col-lg-4">
+                <img class="img-fluid img-properties" src="assets/tutorial.png">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <form action="/tutorial" method="GET">
+                      <input class="btn btn-lg btnCenter btn-danger" type="submit" value="Tutorial" />
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div id="statistics" class="col-sm-12 col-lg-4">
+                <img class="img-fluid img-properties" src="assets/gantt.png">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <% if(projects.length !=2 ) { %>
+                      <form action="/gantt" method="GET">
+                        <input class="btn btn-lg btnCenter btn-danger" type="submit" value="Statistics" />
+                      </form>
+                      <% } else {%>
+                        <input class="btn btn-lg btnCenter btn-danger opaque" value="Statistics" />
+                        <p style="text-align: center;">No projects yet</p>
+                        <% } %>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-4">
+                <img class="img-fluid img-properties" src="assets/tasks.png">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <form action="/tasks" method="GET">
+                      <input class="btn btn-lg btnCenter btn-danger" type="submit" value="Tasks" />
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+  </div>
+  <!-- FOOTER -->
+
+  <footer class="footer bg-light-gray">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 col-lg-3">
+          <img class="img-fluid footer-img" src="assets/TaskOPad.png">
+        </div>
+        <div id="icons" class="col-sm-8 col-lg-8 margin center">
+          <!-- Facebook -->
+          <a class="btn btn-floating m-1" href="https://www.facebook.com/" role="button"><i
+              class="fab fa-facebook fa-lg"></i></i></a>
+          <!-- Twitter -->
+          <a class="btn btn-floating m-1" href="https://twitter.com/?lang=en" role="button"><i
+              class="fab fa-twitter fa-lg"></i></i></a>
+          <!-- Google -->
+          <a class="btn btn-floating m-1" href="https://www.google.com/" role="button"><i
+              class="fab fa-google fa-lg"></i></i></a>
+          <!-- Instagram -->
+          <a class="btn btn-floating m-1" href="https://www.instagram.com/" role="button"><i
+              class="fab fa-instagram fa-lg"></i></i></a>
+          <!-- Linkedin -->
+          <a class="btn btn-floating m-1" href="https://il.linkedin.com/" role="button"><i
+              class="fab fa-linkedin fa-lg"></i></i></a>
+          <!-- Github -->
+          <a class="btn btn-floating m-1" href="https://github.com/" role="button"><i
+              class="fab fa-github fa-lg"></i></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!-- jQuery first, then Tether, then Bootstrap JS. -->
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+    integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+    integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+    crossorigin="anonymous"></script>
+  <script src="bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.4.1/js/all.min.js"></script>
+  <script>
+    const flag = '<%- connected %>'
+    if (flag == 'false') {
+      localStorage.setItem('projects', "")
+      localStorage.setItem('email', "")
+    }
+    else {
+      const projects = '<%- projects %>'
+      console.log(projects)
+      console.log(projects.length)
+      const projectsJSON = JSON.parse(projects);
+      projectsJSON.forEach((element) => {
+        element["user"] = "<%- email %>"
+      });
+      const projectsToSave = JSON.stringify(projectsJSON)
+      localStorage.setItem('projects', projectsToSave)
+      localStorage.setItem('email', "<%- email %>")
+    }
+  </script>
+</body>
+
+</html>
