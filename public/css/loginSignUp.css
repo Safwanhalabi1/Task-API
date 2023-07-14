@@ -1,0 +1,93 @@
+body.signin-body {
+    background-color: #e6f2ff;
+}
+
+.container.signin-container {
+    margin-top: 5%;
+}
+
+.card.signin-card {
+    padding: 40px 0 20px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+img.signin-image {
+    padding: 0 2rem 2rem;
+    margin: auto;
+    display: block;
+    width: 70%;
+}
+
+form.signin-form {
+    max-width: 450px;
+    margin: auto;
+}
+
+button.signin-btn {
+    color: #ffffff;
+    background-color: #d64829;
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+
+.submit {
+    color: #ffffff;
+    background-color: #d64829;
+    width: 100%;
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 2rem;
+    border-radius: 5px;
+}
+
+.submit:hover {
+    color: #ffffff;
+    background-color: #d93d1a95;
+    width: 100%;
+    margin-bottom: 1.2rem;
+    transition: 0.5s;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 2rem;
+    border-radius: 5px;
+}
+
+a.account-creation {
+    font-size: 1.2rem;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+}
+
+.borderless {
+    border: none;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: x-large;
+}
+
+.nav-link {
+    color: white;
+}
+
+
+input[type=submit].nav-button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    margin-bottom: 0px;
+}
+
+.err-message {
+    color: #d64829;
+    font-size: large;
+    text-align: center;
+    margin: auto;
+}

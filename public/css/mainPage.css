@@ -1,0 +1,114 @@
+img.navbar-image {
+    width: 100%;
+    display: block;
+}
+
+div.jumbotron {
+    text-align: center;
+    background: none;
+}
+
+.sectionLight {
+    background-color: #eceeef;
+    padding: 2em;
+}
+
+.sectionDark {
+    background-color: #cccccc;
+    padding: 2rem;
+}
+
+.round {
+    border-radius: 25px;
+}
+
+.buttonWrapper {
+    margin-top: 20px;
+}
+
+button.sectionDarkButton {
+    background-color: red;
+    color: white;
+    display: block;
+    margin: auto;
+}
+
+h1.modal-title {
+    margin: auto;
+}
+
+img.img-properties {
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+    width: 140px;
+    height: 140px;
+}
+
+.btnCenter {
+    display: block;
+    margin: auto;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    width: 54%;
+}
+
+img.footer-img {
+    padding: 15px;
+}
+
+footer.bg-light-gray {
+    background-color: #F4F4F4;
+}
+
+img.caro {
+    width: 800px;
+    height: 480px;
+}
+
+img.compliment-left {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: auto;
+}
+
+img.compliment-right {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin: auto;
+}
+
+.nav-button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: x-large;
+}
+
+.nav-link {
+    color: white;
+}
+
+.margin {
+    margin: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+
+@media(max-width:600px) {
+    .center {
+        text-align: center;
+    }
+    #statistics {
+        display: none;
+    }
+}
