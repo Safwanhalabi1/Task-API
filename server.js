@@ -33,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(cors());
 app.use(session({ resave: true, secret: "123456", saveUninitialized: true }));
 app.use("/user", UserRoute);
 app.use("/project", ProjectRoute);
@@ -59,6 +60,7 @@ const connectedUser = {
 };
 
 app.get("/", async (req, res) => {
+	res.setHeader("Access-Control-Allow-Credentials","true");
 	if (!req.session.initialised) {
 		// Initialise our variables on the session object (that's persisted across requests by the same user
 		req.session.initialised = true;
