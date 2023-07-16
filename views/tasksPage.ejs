@@ -123,26 +123,29 @@
 		<!-- search bar -->
 		<div class="row" style="margin-bottom: 20px;">
 			<div class="col-md-12">
-				<input type="text" id="searchInput" class="form-control" style="width: 50%;" placeholder="Search tasks">
+				<h3>Filters</h3>
+				<input type="text" id="searchInput" class="form-control" style="width: 25%;" placeholder="Search tasks">
+				<div class="form-group">
+					<input type="text" class="form-control" style="display: initial; width: 200px; margin-right: 5px; padding: 6px;"
+					 id="datePicker" placeholder="Select a date">
+					<button type="button" class="btn btn-primary" id="clearDateButton" onclick="taskObj.clearDatePicker()">Clear</button>
+				</div>
 			</div>
 		</div>
 
 		<!-- button to add task -->
 		<div class="row" style="margin-bottom: 50px;">
 			<div class="col-md-12">
-				<button type="bu☺tton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add
-					Task</button>
-
 				<!-- form to delete project -->
 				<form method="POST" onsubmit="return taskObj.deleteProject(this);" style="display: contents;">
 					<select name="project" class="form-control"
-						style="display: initial; width: 200px; margin-left: 5px; margin-right: 5px;"
+						style="display: initial; width: 200px; margin-right: 5px;"
 						id="form-task-hour-calculator-all-projects"></select>
 					<input type="submit" class="btn btn-danger" value="Delete Project">
 				</form>
-				<div class="form-group">
-					<input type="text" id="datePicker" placeholder="Select a date">
-				</div>
+				<br><br>
+				<button type="bu☺tton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">Add
+					Task</button>
 			</div>
 		</div>
 	</div>
@@ -177,11 +180,6 @@
 				<div class="modal-body">
 					<form method="POST" onsubmit="return taskObj.addTask(this);" id="form-task-hour-calculator">
 
-						<!-- select project from already created -->
-						<div class="form-group">
-							<label>Project</label>
-							<select name="project" id="add-task-project" class="form-control" required></select>
-						</div>
 
 						<!-- create new project -->
 						<div class="form-group">
@@ -190,6 +188,13 @@
 								placeholder="Project Name">
 							<button type="button" onclick="taskObj.addProject();" class="btn btn-primary"
 								style="margin-top: 10px;">Add Project</button>
+							<br><p>______________________________________________________________________</p>
+						</div>
+
+						<!-- select project from already created -->
+						<div class="form-group">
+							<label>Project</label>
+							<select name="project" id="add-task-project" class="form-control" required></select>
 						</div>
 
 						<!-- enter task -->
@@ -198,7 +203,7 @@
 							<input type="text" id="taskNameAdd" name="task" class="form-control"
 								placeholder="What are you going to do?" required>
 							<label>Supposed Start Date</label>
-							<input type="text" id="datePickerStartDateAdd" name="startDate" placeholder="Select a date"
+							<input type="submit" style="background-color: #ffffff" id="datePickerStartDateAdd" name="startDate" placeholder="Select a date"
 								required>
 						</div>
 					</form>
@@ -327,16 +332,14 @@
 						}
 					}
 					if (willDelete) {
-						//PROBLEMATIC PIECE OF SHIT CODE PLEASE FIX FOR THE LOVE OF GOD MAN 
-						// شباب انا ما بدي اصيح ولا بدي افصل حدا, الي خاري ورا مفتاح البلاط يجي يلمها
+
 						try {
-							//ProjectName = findNameById(self.project.value)
 							const response = await fetch("/tasks/deleteProject", {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
 								},
-								body: JSON.stringify({ name: text, user: localStorage.getItem("email") }) //THIS SHIT PLEASE FIX MAN FOR THE LOVE OF GOD
+								body: JSON.stringify({ name: text, user: localStorage.getItem("email") })
 
 							});
 							const result = await response.text();
@@ -523,6 +526,8 @@
 						break;
 					}
 				}
+				
+				
 
 				// update local storage
 				localStorage.setItem(this.key, JSON.stringify(projects));
@@ -718,6 +723,11 @@
 				document.getElementById("all-tasks").innerHTML = html;
 			},
 
+			clearDatePicker: function () {
+				document.getElementById('datePicker').value = '';
+				taskObj.showAllTasks();
+			},
+
 			// change task status
 			changeTaskStatus: function (self) {
 				// if task is not selected
@@ -835,6 +845,7 @@
 				}
 			}
 		}
+		
 
 		function showModal(projectName, oldTaskName, oldTaskDate) {
 			// Use the modal's id to show it
